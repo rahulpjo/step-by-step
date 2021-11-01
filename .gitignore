@@ -1,0 +1,17 @@
+#Python caches
+*/__pycache__/
+__pycache__/
+
+#Virtual environment folder
+step-by-step-env/
+
+#Database file
+blog.db
+
+#Environment variables
+.env
+
+
+
+
+

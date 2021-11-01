@@ -11,7 +11,10 @@ blog.db
 #Environment variables
 .env
 
+#Migrations folder
+alembic/
 
+.vscode
 
 
 

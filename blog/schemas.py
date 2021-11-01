@@ -8,8 +8,12 @@ class User(BaseModel):
 
 
 class BlogPost(BaseModel):
-  user: User
   body: str
   likes: int = 0
   published: bool = False
   tag: Optional[str] = None
+
+class ShowBlogPost(BlogPost):
+  pass
+  class Config():
+    orm_mode = True

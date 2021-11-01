@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, status, Response, HTTPException
+from fastapi import FastAPI, Depends, status, HTTPException
+from typing import List
 from . import schemas
 from . import models
 from .database import SessionLocal, engine
@@ -20,8 +21,8 @@ async def get_posts(db : Session = Depends(get_db)):
   posts = db.query(models.Post).all()
   return posts
 
-@app.get("/posts/{id}")
-async def get_post(id:int, response: Response, db : Session = Depends(get_db)):
+@app.get("/posts/{id}", response_model = schemas.ShowBlogPost)
+async def get_post(id:int, db : Session = Depends(get_db)):
   post = db.query(models.Post).filter(models.Post.id == id).first()
   if not post:
     raise HTTPException(status_code=404, detail=f"Post with id {id} not found")
@@ -37,12 +38,12 @@ async def create(request: schemas.BlogPost, db : Session = Depends(get_db)):
 
 @app.put("/posts/{id}", status_code=status.HTTP_202_ACCEPTED)
 async def update_post(id:int, request: schemas.BlogPost, db : Session = Depends(get_db)):
-  new_post = db.query(models.Post).filter(models.Post.id == id)
-  if not new_post.first():
+  post = db.query(models.Post).filter(models.Post.id == id)
+  if not post.first():
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
-  new_post.update(request, synchronize_session=False)
+  post.update({"body": request.body, "tag": request.tag, "published": request.published})
   db.commit()
-  return new_post
+  return {"message": "Updated post!"}
 
 @app.delete("/posts/{id}")
 async def delete_post(id:int, db : Session = Depends(get_db)):

@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean
-
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from .database import Base
+from sqlalchemy.orm import relationship
 
 class PostORM(Base):
   __tablename__ = "posts"
@@ -9,6 +9,9 @@ class PostORM(Base):
   likes = Column(Integer)
   published = Column(Boolean)
   tag = Column(String)
+  author_id = Column(Integer, ForeignKey("users.id"))
+  
+  author = relationship("UserORM", back_populates="posts")
 
 class UserORM(Base):
   __tablename__ = "users"
@@ -20,3 +23,5 @@ class UserORM(Base):
   password = Column(String)
   bio = Column(String)
   img_url = Column(String)
+
+  posts = relationship("PostORM", back_populates="author")

@@ -1,14 +1,18 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
-class User(BaseModel):
+class BaseUser(BaseModel):
   first_name: str
   last_name: str
   pronouns: str
   email: str
-  password: str
   bio: str
   img_url: str = "https://media.istockphoto.com/photos/watercolor-textured-background-picture-id887755698?k=20&m=887755698&s=612x612&w=0&h=UcvMcQg07D_WfBT88iOWWXMV5WMRXRM8nqJRXcySUNA="
+  class Config:
+    orm_mode = True
+
+class User(BaseUser):
+  password: str
 
 class BlogPost(BaseModel):
   body: str
@@ -30,6 +34,10 @@ class ShowUser(BaseModel):
     orm_mode = True
 
 class ShowBlogPost(BlogPost):
-  author: ShowUser
+  author: BaseUser
   class Config:
     orm_mode = True
+
+class Login(BaseModel):
+  username: str
+  password: str

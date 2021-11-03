@@ -1,11 +1,12 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from ..hashing import Hash
-from .. import schemas, models
+from ..schemas import User
+from ..models import UserORM
 
-def create(request: schemas.User, db : Session):
+def create(request: User, db : Session):
   
-  new_user = models.UserORM(
+  new_user = UserORM(
     first_name=request.first_name, 
     last_name=request.last_name, 
     pronouns=request.pronouns, 
@@ -20,7 +21,7 @@ def create(request: schemas.User, db : Session):
   return new_user
 
 def show(id:int, db : Session):
-  user = db.query(models.UserORM).filter(models.UserORM.id == id).first()
+  user = db.query(UserORM).filter(UserORM.id == id).first()
   if not user:
     raise HTTPException(status_code=404, detail=f"User with id {id} not found")
   return user

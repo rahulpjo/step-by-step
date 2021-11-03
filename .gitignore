@@ -1,20 +1,14 @@
 #Python caches
-*/__pycache__/
-__pycache__/
+**/__pycache__/
 
 #Virtual environment folder
-step-by-step-env/
+**/myenv/
 
 #Database file
-blog.db
+*/step_by_step.db
 
 #Environment variables
-.env
+*/*.env
 
 #Migrations folder
-alembic/
-
-.vscode
-
-
-
+*/alembic/

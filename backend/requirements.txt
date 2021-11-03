@@ -1,5 +1,4 @@
-fastapi
-uvicorn
+fastapi[all]
 sqlalchemy
 alembic
 passlib

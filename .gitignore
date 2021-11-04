@@ -1,14 +1,44 @@
+# ----------------------------------------------------------------
+# BACK END
+# ----------------------------------------------------------------
+
 #Python caches
-**/__pycache__/
+backend/**/__pycache__/
 
 #Virtual environment folder
-**/myenv/
+backend/**/myenv/
 
 #Database file
-*/step_by_step.db
+backend/step_by_step.db
 
 #Environment variables
-*/*.env
+backend/*.env
 
 #Migrations folder
-*/alembic/
+backend/alembic/
+
+# ----------------------------------------------------------------
+# FRONT END
+# ----------------------------------------------------------------
+
+# dependencies
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*

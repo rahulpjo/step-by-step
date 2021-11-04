@@ -14,8 +14,9 @@ def show(id:int, db : Session):
   return post
 
 def create(request: BlogPost, db : Session, user: User):
-  user = db.query(UserORM).filter(UserORM.email == user.username).first()
-  new_post = PostORM(body = request.body, likes = 0, published = False, tag = request.tag, author_id=user.id)
+  userInfo = db.query(UserORM).filter(UserORM.email == user.username).first()
+  print(userInfo)
+  new_post = PostORM(body = request.body, likes = 0, published = False, tag = request.tag, author_id=userInfo.id)
   db.add(new_post)
   db.commit()
   db.refresh(new_post)

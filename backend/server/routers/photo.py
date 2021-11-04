@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from ..controllers import photo
 from ..database import get_db 
 from ..schemas import User
-from ..oauth2 import get_current_user
+from ..jwt_auth import get_current_user
 
 router = APIRouter(prefix="/files",tags=["Files"])
 

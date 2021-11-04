@@ -1,15 +1,19 @@
 from os import environ
 from dotenv import load_dotenv
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from typing import Optional
 from datetime import datetime, timedelta
 from .schemas import TokenData
 
 load_dotenv()
+
 SECRET_KEY = environ.get("SECRET_KEY")
 ALGORITHM = environ.get("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(environ.get("ACCESS_TOKEN_EXPIRE_MINUTES"))
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
   to_encode = data.copy()
@@ -35,4 +39,8 @@ def verify_token(token: str):
     token_data = TokenData(username=username)
   except JWTError:
     raise credentials_exception
+  return token_data
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+  token_data = verify_token(token)
   return token_data

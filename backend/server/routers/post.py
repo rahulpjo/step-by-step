@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db 
 from ..controllers import post
 from ..schemas import User, ShowBlogPost, BlogPost
-from ..oauth2 import get_current_user
+from ..jwt_auth import get_current_user
 
 router = APIRouter(prefix="/posts",tags=["Posts"])
 
@@ -21,9 +21,9 @@ async def create_post(request: BlogPost, db : Session = Depends(get_db), user: U
   return post.create(request, db, user)
 
 @router.put("/{id}", status_code=status.HTTP_202_ACCEPTED)
-async def update_post(id:int, request: BlogPost, db : Session = Depends(get_db)):
+async def update_post(id:int, request: BlogPost, db : Session = Depends(get_db), user: User = Depends(get_current_user)):
   return post.update(id, request, db)
 
 @router.delete("/{id}")
-async def delete_post(id:int, db : Session = Depends(get_db)):
+async def delete_post(id:int, db : Session = Depends(get_db), user: User = Depends(get_current_user)):
   return post.delete(id, db)

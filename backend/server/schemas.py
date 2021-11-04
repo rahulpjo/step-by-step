@@ -23,6 +23,7 @@ class BlogPost(BaseModel):
     orm_mode = True
   
 class ShowUser(BaseModel):
+  id: int
   first_name: str
   last_name: str
   pronouns: str

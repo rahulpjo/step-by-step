@@ -20,11 +20,11 @@ The project leverages React and Redux on the front-end with FastAPI on the serve
 
 ## Directions
 
-To get started with project, clone and enter the project repository:
+To get started with project, clone and enter the repository's backend folder to begin configuration:
 
 ```
 git clone git@github.com:rahulpjo/step-by-step.git
-cd step-by-step
+cd step-by-step/backend
 ```
 
 **Optional:** It's recommended to work on the project in a virtual environment so that packages don't need to be installed globally. Using venv and any directory name you choose, create and activate a virtual environment:

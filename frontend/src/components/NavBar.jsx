@@ -17,11 +17,18 @@ const NavBar = () => {
           Step by Step
         </Header>
         <Menu.Menu position="right">
-          <Menu.Item as={Link} to="/" name="home" active={pathname === "/"} />
+          <Menu.Item
+            as={Link}
+            to="/"
+            name="home"
+            size="huge"
+            active={pathname === "/"}
+          />
           <Menu.Item
             as={Link}
             to="/profile"
             name="profile"
+            size="huge"
             active={pathname === "/profile"}
           />
           <Menu.Item as={Link} to="/login" name="login">
